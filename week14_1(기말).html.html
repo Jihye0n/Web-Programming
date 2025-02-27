@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2023_2 Final #1</title>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" 
+    integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.min.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" 
+    integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
+
+    <script src="https://kit.fontawesome.com/89a12d4a7e.js" crossorigin="anonymous"></script>    
+
+    <script>
+        let AllMember = new Array(); // 전체 회원(Member)를 저장할 배열
+        let index = 1; // 회원번호 마지막 숫자에 쓰일 인덱스
+        /* Member class 작성  (이름, 번호, 경로포함 이미지이름)            
+           1) */
+        class Member {
+            constructor(name, num, img) {
+                this.name = name;          
+                this.num = num;
+                this.img = "images/" + img + ".jpg";
+            }
+        }
+
+        /* Member 객체 출력 함수 작성 
+           2) */
+        // 이미지를 width는 50으로 하고 연결하여 회원번호: 2023x 이름: xxx <hr> 와 같은 문자열을 만들어서 리턴함.
+        
+        Member.prototype.toString = function() {
+            let str = "";
+
+            str += `<img src="${this.img}" width=50>`;
+            str += "회원번호: " + this.num + " ";
+            str += "이름: " + this.name;
+            str += "<hr>";
+
+            return str;
+        }
+
+        // "<img src = 'image/Penguins.jpg' width=100>"
+
+        function registration() {
+            let num = new Date().getFullYear().toString() + index; // 회원번호 자동 생성
+            index++;	
+            /* 	이름 , 이미지 이름(경로포함) 가져오기
+                Member 객체 생성하고  AllMember 배열에 추가
+                
+                "가입 내용 확인" part에 내용 채우기
+                3)
+            */  
+
+            let name = document.getElementById("name").value;
+            let img = document.getElementById("sel").value;
+
+            let newmember = new Member(name,num,img)
+            AllMember.push(newmember);
+
+        };
+
+        /* AllMember 배열의 내용을 출력하는 함수 
+           위에서 작성한 Member 객체의 출력 함수를 반드시 사용할 것!!
+           4)
+        */
+        function printAll() {
+            // 배열에 저장된 회원수가 1 이상인 경우
+            // id가 list인 <div>의 style 중 visibility 값을 visible로 고침.
+            let listview = document.getElementById("list");
+            if (AllMember.length >= 1) {
+                listview.style.visibility = 'visible';
+            }
+
+            listview.innerHTML = '';
+
+            for (let i = 0; i < AllMember.length; i++) {
+                listview.innerHTML += AllMember[i];
+            }
+        };
+
+        window.onload = function (){
+            /* "가입하기"버튼에 click 이벤트 리스너(registration 함수) 연결 */
+            /* "회원 목록 출력하기" 버튼에 click 이벤트 리스너(printAll 함수) 연결
+               5) */
+            document.getElementById("reg").addEventListener("click", registration);
+
+            document.getElementById("view").addEventListener("click", printAll)
+        };
+    </script>
+</head>
+<body>
+    
+    <!-- "회원 가입하기", "가입 내용 확인" part는 container 안에서 column을 4:8로 나눔
+        "회원 가입하기" part는 변경 금지
+        가입하기 버튼이 눌리면 "가입 내용 확인" part에서 card component(Bootstrap)에 회원사진, 회원번호, 이름을 채움
+    -->
+
+    <div class="container">
+        <div class="row">
+            <div class="col-md-4">
+                <!-- "회원 가입하기" part 변경 금지!!!! -->
+                <h3> 회원 가입하기 </h3>
+                <form>
+                    이름 : <input type="text" id="name"><br>
+                    대표사진 : 
+                    <select id="sel">	
+                        <option value="Desert">Desert</option>
+                        <option value="Jellyfish">Jellyfish</option>
+                        <option value="Koala">Koala</option>
+                        <option value="Lighthouse">Lighthouse</option>
+                        <option value="Penguins">Penguins</option>
+                        <option value="Tulips">Tulips</option>
+                    </select>
+                    <br>
+                    <input id='reg' type="button" value="가입하기">
+                </form>
+                <!-- "위 내용은 변경 금지 !!! ----------->
+            </div>
+    
+
+
+            <div class="col-md-8">
+                <!-- "가입 내용 확인" part -->
+                <h3>가입 내용 확인</h3>
+                <!-- card component를 하나 만들고 image의 src는 비워두고 alt="회원이미지" 로 채울 것 -->
+                
+            </div>
+        </div>
+    </div>
+    
+
+</div>
+
+    <!-- "회원 목록" 출력 part 변경 금지 -->
+    <hr>
+    <h3> 회원 목록 </h3>   
+    <input id='view' type="button" value="회원 목록 출력하기">
+    <hr>
+
+    <div id="list" style = "border:2px solid red; visibility:hidden">
+    </div>
+    
+</body>
+</html>

@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2023_2 Final #2</title>
+    <style>        
+        div, span {
+            display:inline-block;
+            font-size:60px;	
+            background-color:white;
+            margin : 10px;
+            padding:5px;
+            border : 3px solid green;
+            width:80px;
+            height:80px;
+            text-align:center;
+        }        
+    </style>
+    <script>
+        let number = new Array(9); // 숫자 배열을 저장하는 배열
+        let answer; // 정답 숫자를 저장하는 변수
+
+        window.onload = init; // window.onload = function(){} 구조에서 직접 함수 작성이 아닌 작성된 init 함수를 연결해준 것임.
+
+        /* 1~9까지의 숫자를 생성하고 number 배열에 랜덤하게 저장하고 각 하위 블럭에 숫자를 배치하여 보여주는 함수 
+            첫 로딩시와 "섞기" 버튼을 눌렸을 때 동작함.
+        */
+        function init(){
+            let temp1, temp2;
+            let temp;
+            for(i = 0; i <= 8; i++)
+                number[i] = i+1;
+            
+            for(i = 0; i < 1000; i++)
+            {
+                temp1 = Math.floor(Math.random() * 9) // 0 ~ 8
+                temp2 = Math.floor(Math.random() * 9) // 0 ~ 8
+                temp = number[temp1];
+                number[temp1] = number[temp2];
+                number[temp2] = temp;		
+            }	
+            
+            let top = document.getElementById("top");	
+            top.innerHTML = "#";
+            
+            let block = document.getElementsByTagName("span");	
+            for(i = 0; i < block.length; i++) {
+                block[i].innerHTML = number[i]; // number 배열에 저장된 숫자를 각 블록내 글자로 넣어줌.
+                block[i].style.border = "3px solid green";
+            }
+        }
+
+        /* 선택한 카드 색상과 숫자 색상 값으로 변경하는 함수를 작성하시오 1) */
+        let changeColor = function (){
+            /* 카드 색상 값(value)와 숫자 색상 값(value)를 가져와서 
+                위의 top(정답숫자) 카드와 하단의 9개 카드의 배경색과 글자색을 모두 변경함
+            */
+            let cardColor = document.getElementById("card").value;
+            let numberColor = document.getElementById("num").value;
+
+            let topCard = document.getElementById("top");
+            topCard.style.backgroundColor = cardColor;
+            topCard.style.color = numberColor;
+
+            let card = document.getElementsByTagName("span");
+            for (let i = 0; i < card.length; i++) {
+                card[i].style.backgroundColor = cardColor;
+                card[i].style.color = numberColor;
+            }
+        }
+
+        /* "게임시작하기" 버튼을 눌렀을 때 동작하는 이벤트 함수를 작성하시오 2) */ 
+        let startGame = function () {
+            /* 1부터 9까지의 숫자를 랜덤하게 발행하여 answer에 저장함.
+                top 카드에 정답 숫자가 보여지도록 함.
+
+                하단의 9개 카드 모두에 대해서 번호 대신 "#"이 보여지도록 함.
+                하단의 9개 카드 모두에 대해서 "mousedown" 이벤트 리스너로 viewNumber 함수를 연결함.
+                하단의 9개 카드 모두에 대해서 "mouseup" 이벤트 리스너로 hideNumber 함수를 연결함.
+
+            */
+            answer = Math.floor(Math.random() * 9) + 1;
+            let topCard = document.getElementById("top");
+            topCard.innerHTML = answer;
+
+            let card = document.getElementsByTagName("span");
+            for (let i = 0; i < card.length; i++) {
+                card[i].innerHTML = "#";
+                card[i].addEventListener('mousedown', viewNumber);
+                card[i].addEventListener('mouseup', hideNumber);
+            }
+        }
+
+        /* 9개 card에 대해서 mousedown 이벤트 발생할 때 동작하는 리스너 함수를 완성하시오. 3) */ 
+        let viewNumber = function() {
+            /* 숨겨져 있던 숫자가 마우스가 눌린 상태에서 보여지게 해야 함.
+                현재 마우스가 눌린 card의 id (span 태그의 id)를 인덱스로 이용하여 number 배열에서 숫자를 가져옴.
+                가져온 숫자가 현재 마우스가 눌린 card의 innerHTML이 되도록 함.
+
+                정답 숫자와 같은 숫자 card가 눌린 경우 
+                눌린 card의 border를 "3px dashed red"로 변경
+                모든 카드에 대하여 감춰져 있던 숫자를 보여주도록 함.
+
+                모든 카드에 연결되어 있던 "mousedown", "mouseup" 이벤트 리스너를 모두 제거함.
+                이벤트 리스너 제거는 다음과 같이 수행함.
+                (해당객체).removeEventListener('mousedown', viewNumber);
+                (해당객체).removeEventListener('mouseup', hideNumber)
+            */
+            let clickedCard = this;
+            let index = parseInt(clickedCard.id);
+            let show = number[index];
+
+            if (show == answer) {
+                clickedCard.style.border = "3px dashed red";
+                let card = document.getElementsByTagName("span");
+                for (let i = 0; i < card.length; i++) {
+                    card[i].innerHTML = number[i];
+                }
+
+                for(let i = 0; i < card.length; i++){
+                    card[i].removeEventListener('mousedown', viewNumber);
+                    card[i].removeEventListener('mouseup', hideNumber)
+                }
+            }
+
+            clickedCard.innerHTML = Show;
+        }
+
+        /* 9개 card에 대해서 mouseup 이벤트 발생할 때 동작하는 리스너 함수를 완성하시오. 4) */
+        let hideNumber = function() {	// (3)
+            /* 이벤트를 발생시킨 card의 innerHTML을 "#"으로 바꿔줌.
+            */
+
+            card.innnerHTML = "#";
+
+        };
+    </script>
+</head>
+<body>
+    <!-- html 변경 금지!!! -->
+    <h3>숫자를 찾아라</h3>
+    카드 색상 : <input type="color" id="card" value="#FFFFFF"><br>
+    숫자 색상 : <input type="color" id="num" value="#000000"><br>
+    <input type="button" id="set" value="색상 변경하기" onclick="changeColor()">
+    <hr>
+    <div id="top"> X </div> <br>
+    <input type=button value="섞기" onclick="init()"> 
+    <input type=button value="게임시작하기" onclick="startGame()">
+    <p>
+    <span id=0> # </span> <span id=1> # </span> <span id=2> # </span><br>
+    <span id=3> # </span> <span id=4> # </span> <span id=5> # </span><br>
+    <span id=6> # </span> <span id=7> # </span> <span id=8> # </span>
+</body>
+</html>

@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2024_Class2_Midterm Exam</title>
+    <!-- 구글 Jua-regular 폰트 적용 -->
+    
+
+    <style>
+        /* 전체 폰트 적용 */
+        body {
+            font-family: 'jua regular', cursive; font-weight: 400;
+        }
+
+        /* section style 적용 */
+        section {
+            border-width: 3px solid lightseagreen;
+            margin: 20px;
+            padding-left: 20px;
+            padding-right: 20px;
+        }
+
+
+
+    </style>
+    <style>
+        /* Form 꾸미기 Style */
+        #sec1 {
+            background-color: coral;
+        }
+        strong {
+            color: red;
+        }
+        input {
+            border-width: 2px;
+            border-color: gray;
+            border-style: solid;
+        }
+        input:focus {
+            background-color: pink;
+            border-width: 2px;
+            color: blue;
+            border-style: solid;
+            font-size: 15px;
+        }
+        fieldset{
+            margin-top:30px;
+            margin-bottom:30px;
+        }
+    </style>    
+    <style>
+        /* 검색 Section Style */
+        #sec2 {
+            background-color: yellowgreen;
+            height: 200px;
+        }
+
+        #sec2 div {
+            background-size: 150px 100px;
+            background-repeat:no-repeat;
+            background-position: center center;
+            display: inline-block;
+            width: 150px; height: 100px;
+            margin-left: 50px;
+            border-radius: 50px 0px 50px 0px;
+            box-shadow: 5px 5px darkblue;
+            border: 1px solid blue;
+            font-size: 35px;
+            text-align: center;
+            color: yellow;
+            text-decoration: none;
+        }
+        
+        .dv1 {
+            background-image: url("./images/Koala.jpg");
+        }
+
+        .dv2 {
+            background-image: url("./images/Penguins.jpg");
+        }
+
+        .dv3 {
+            background-image: url("./images/Tulips.jpg");
+        }
+        
+       
+
+    </style>
+    <style>
+        /* 슬라이드 메뉴바 Style */
+        #sec3 ul {
+            display:inline;            
+            list-style:none;
+        }
+        #sec3 ul li{                       
+            padding:10px 10px;            
+            font-weight:bold;
+            color:grey;
+        }
+        /* 이후 슬라이드 메뉴바 스타일을 완성하세요. */
+        #sec3 {
+            background-color: lightgray;
+        }
+
+        #sec3 .list {
+            width: 100px;
+            height: 180px;
+            background-color: gold;
+            position: relative;
+            z-index: auto;
+            border-radius: 00px 20px 20px 0px;
+        }
+
+    
+        #sec3 .sublist2>ul:hover {
+            top: 150px;
+            color: white;
+        }
+
+        #sec3 .sublist1 {
+            width: 350px;
+            top: -180px; 
+            left: -805px;
+            
+            background-color: skyblue;
+        }
+
+        #sec3 .sublist2 {
+            width: 450px;
+            top: -280px; 
+            left: -850px;
+
+            background-color: skyblue;
+        }
+        
+        
+    </style>
+    
+</head>
+<body>
+    <section id="sec1">
+        <h3>Form 꾸미기</h3>
+        <form method="GET" action="">
+            <!-- form 내부를 완성하세요. -->
+            <fieldset>
+                <legend>기본 정보</legend>
+                <strong>이름 : </strong> <input type = "text" placeholder = "이름을 입력하세요"><br>
+                <strong>비밀번호 :</strong> <input type= "password" placeholder="4자리 이상" minlength="4"><br>
+                <strong>e-mail :</strong> <input type="email" placeholder="id@domin.com">
+            </fieldset>
+            <fieldset>
+                <legend>학년</legend>
+                <input type="radio" name="grade" value="1">1학년
+                <input type="radio" name="grade" value="2" checked>2학년
+                <input type="radio" name="grade" value="3">3학년
+                <input type="radio" name="grade" value="4">4학년
+            </fieldset>
+            <fieldset>
+                <legend>관심운동</legend>
+                <input type="checkbox" value="1" checked>축구
+                <input type="checkbox" value="2">야구
+                <input type="checkbox" value="3">수영
+                <input type="checkbox" value="4" checked>골프
+            </fieldset>
+            <fieldset>
+                <legend>등교 방법</legend>
+                <input type="radio" name="way" value="1" checked>걸어서
+                <input type="radio" name="way" value="2">버스
+                <input type="radio" name="way" value="3">자가용
+                <input type="radio" name="way" value="4">지하철
+            </fieldset>
+        </form>
+    </section>   
+
+    <section id="sec2">
+        <h3>검색 </h3>
+        <!-- 각각을 클릭할 경우 (코알라, 펭귄, 튤립)이 네이버에서 검색되도록 수정하세요. 
+             처음에는 새로운 Tap이 떠서 내용이 보이지만 이후에는 생성된 tap에서 내용만 바뀌어야 함.
+        -->
+        <div class="dv1"><a href="http://search.naver.com/search.naver?query=코알라" target="aaa">코알라</a></div>
+        <div class="dv2"><a href="http://search.naver.com/search.naver?query=팽귄" target="aaa">팽귄</a></div>
+        <div class="dv3"><a href="http://search.naver.com/search.naver?query=튤립" target="aaa">튤립</a></div>
+
+    </section>
+
+    <section id="sec3">
+        <div class="list">
+            <ul>
+                <li>Home</li>
+                <li>Menu 1</li>
+                <li>Menu 2</li>                        
+            </ul>
+        </div>
+                
+        <div class="sublist1">
+            <ul>
+                <li><a href="">submenu#1-1</a></li>
+                <li><a href="">submenu#1-2</a></li>                                
+            </ul>
+        </div>
+    
+        <div class="sublist2">
+            <ul>
+                <li><a href="">submenu#2-1</a></li>
+                <li><a href="">submenu#2-2</a></li>                                
+                <li><a href="">submenu#2-3</a></li>                                
+            </ul>        
+        </div>  
+    </section>    
+</body>
+</html>
